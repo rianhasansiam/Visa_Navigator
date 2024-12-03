@@ -1,3 +1,6 @@
+import { Outlet } from "react-router-dom"
+import Footer from "./Footer/Footer"
+import Navbar from "./Header/Navbar"
 
 
 
@@ -6,8 +9,11 @@ function App() {
 
   return (
     <>
-    <h1>hi this is main page</h1>
-     
+    <Navbar/>
+
+    <Outlet/>
+    
+     <Footer/>
     </>
   )
 }
