@@ -5,6 +5,7 @@ import AllVisas from "./All Visas/AllVisas";
 import AddVisa from "./Add Visa/AddVisa";
 import MyAddedVisas from "./My Added Visas/MyAddedVisas";
 import MyVisaApplication from "./My Visa Application/MyVisaApplication";
+import Home from "./Home/Home";
 
 const Root = createBrowserRouter([
     {
@@ -12,6 +13,11 @@ const Root = createBrowserRouter([
       element: <App/>,
       errorElement:<ErrorPage/>,
       children:[
+        {
+          path: "/",
+          element: <Home/>,
+          
+        },
         {
           path: "/all-visas",
           element: <AllVisas/>,

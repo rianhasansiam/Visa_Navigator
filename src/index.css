@@ -15,3 +15,20 @@ a.active{
     font-weight: 700;
    
   }
+
+
+  .backgroundImgOne{
+    background-image: url('https://i.ibb.co.com/MnHdFJ4/3333333nsplash.jpg');
+    background-size: cover;
+    background-repeat: no-repeat,
+  }
+  .backgroundImgTwo{
+    background-image: url('https://i.ibb.co.com/D5qZZTV/2222222222222222222229-AI0-unsplash.jpg');
+    background-size: cover;
+    background-repeat: no-repeat,
+  }
+  .backgroundImgThree{
+    background-image: url('https://i.ibb.co.com/0j5p0GR/1111111111111111plash.jpg');
+    background-size: cover;
+    background-repeat: no-repeat,
+  }
