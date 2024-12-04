@@ -6,6 +6,9 @@ import AddVisa from "./Add Visa/AddVisa";
 import MyAddedVisas from "./My Added Visas/MyAddedVisas";
 import MyVisaApplication from "./My Visa Application/MyVisaApplication";
 import Home from "./Home/Home";
+import LoginPage from "./Athentication/LoginPage";
+import RegisterPage from "./Athentication/RegisterPage";
+import PrivateRoute from "./Athentication/PrivateRoute";
 
 const Root = createBrowserRouter([
     {
@@ -25,17 +28,27 @@ const Root = createBrowserRouter([
         },
         {
           path: "/add-visa",
-          element: <AddVisa/>,
+          element: <PrivateRoute><AddVisa/></PrivateRoute>,
           
         },
         {
           path: "/my-added-visas",
-          element: <MyAddedVisas/>,
+          element: <PrivateRoute><MyAddedVisas/></PrivateRoute>,
      
         },
         {
           path: "/my-visa-applications",
-          element: <MyVisaApplication/>,
+          element: <PrivateRoute><MyVisaApplication/></PrivateRoute>,
+         
+        },
+        {
+          path: "/login",
+          element: <LoginPage/>,
+         
+        },
+        {
+          path: "/register",
+          element: <RegisterPage/>,
          
         },
       ]
