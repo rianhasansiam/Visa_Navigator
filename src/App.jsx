@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom"
 import Footer from "./Footer/Footer"
 import Navbar from "./Header/Navbar"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { contextData } from "./Contex"
 
 
@@ -10,18 +10,37 @@ import { contextData } from "./Contex"
 function App() {
 
 
-  const {userData}=useContext(contextData)
-  if(!userData){
-    return <div className="flex justify-center items-center mt-[40vh]"><span className="loading loading-ring w-[100px] md:w-[150px]"></span></div>
-  }
+    
+    
+    
+    const [showComponent, setShowComponent] = useState(false);
+
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setShowComponent(true); 
+      }, 1500);
+  
+      // Clean up the timer if the component unmounts
+      return () => clearTimeout(timer);
+    }, []);
+    
+    
+    
 
   return (
     <>
-    <Navbar/>
+    {showComponent ? (
+      <div>
+        <Navbar/>
+ 
+        <Outlet/>
+        
+         <Footer/>
 
-    <Outlet/>
-    
-     <Footer/>
+      </div>
+      ) : (
+        <div className="flex justify-center items-center mt-[40vh]"><span className="loading loading-ring w-[100px] md:w-[150px]"></span></div>
+      )}
     </>
   )
 }

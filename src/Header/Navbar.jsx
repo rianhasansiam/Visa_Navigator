@@ -61,7 +61,7 @@ const Navbar = () => {
    <div className="dropdown dropdown-hover">
   <div tabIndex={0} role="button" className=' items-center gap-2 hidden md:flex' ><img className=' w-[45px] h-[45px] rounded-full object-cover' src="https://i.ibb.co.com/hYzk0Cv/Rian-Image.png" alt="" />
  
-  <h1 data-aos="fade-left"> <h1 className='font-semibold text-lg'>rian hasan siam</h1></h1>
+  <div data-aos="fade-left"> <h1 className='font-semibold text-lg'>rian hasan siam</h1></div>
   </div>
 
 

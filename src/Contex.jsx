@@ -4,7 +4,18 @@ export const contextData=createContext()
 import {  createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import auth from './Athentication/Firebase'
 
+
 const Contex = ({children}) => {
+
+
+  const [dependency,setDependency]=useState(0)
+  const uiupdateHandle=()=>{
+    setDependency(dependency+1)
+  }
+
+
+
+
 
   const [visasData,setVisasData]=useState([])
   const [topvisa,setTopvisa]=useState([])
@@ -13,12 +24,13 @@ const Contex = ({children}) => {
   const [dp,setDp]=useState(null)
   const [disname,setdisname]=useState(null)
   const [userData,setUserData]=useState(null)
+  
+  
+
+  
 
   useEffect(()=>{
-    //add 6 data in home page
-    fetch('http://localhost:5000/visas-data-home')
-    .then(res => res.json())
-    .then(data => setVisasData(data))
+   
     //all visa data
     fetch('http://localhost:5000/visas-data')
     .then(res => res.json())
@@ -35,9 +47,18 @@ const Contex = ({children}) => {
     .then(res => res.json())
     .then(data => setVisaSteps(data))
 
+//add 6 data in home page
+    fetch('http://localhost:5000/visas-data-home')
+    .then(res => res.json())
+    .then(data =>{
+     setVisasData(data)
+    //  console.log(data)
+    } )
 
+   },[dependency])
 
-   },[allVisaData])
+ 
+ 
 
  
 
@@ -51,11 +72,15 @@ const createNewUser=(name,email,password,photoUrl)=>{
     
     const user = userCredential.user;
     setUserData(user)
+    // setLoading(true)
+    
     // console.log(user)
 
 
     setDp(photoUrl)
     setdisname(name)
+
+    
     //after signup then update profile picture
     updateProfile(user, {
       displayName: name,
@@ -90,6 +115,8 @@ const loginUser=(email, password)=>{
   .then((userCredential) => {
 
     const user = userCredential.user;
+    // setLoading(true)
+  
     // console.log(user)
     setUserData(user)
 
@@ -109,13 +136,21 @@ const loginUser=(email, password)=>{
 useEffect(()=>{
    
   const unsubscribe=onAuthStateChanged(auth, (user) => {
+    
     if (user) {
 
      
       setDp(user.photoURL )
     setdisname(user.displayName )
-    setUserData(user)
-      console.log(user)
+    if (user) {
+      setUserData(user);
+    } else {
+      setUserData(null);
+    }
+    // setLoading(true);
+   
+   
+      // console.log(user)
     } else {
       // User is signed out
       console.log('User is signed out')
@@ -130,11 +165,16 @@ useEffect(()=>{
 },[])
 
 
+
+
+
+
 //SIGNOUT user
 const signoutHandle=()=>{
   signOut(auth).then(() => {
     console.log('Signout successful')
     setUserData(null)
+    // setLoading(false)
 
     // Sign-out successful.
   }).catch((error) => {
@@ -158,7 +198,9 @@ const signoutHandle=()=>{
       signoutHandle,
       disname,
       dp,
-      userData
+      userData,
+      uiupdateHandle,
+  
       
 
     }

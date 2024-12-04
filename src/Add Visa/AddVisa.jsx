@@ -43,6 +43,7 @@ const AddVisa = props => {
   //   });
   // };
 
+  const {uiupdateHandle}=useContext(contextData)
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -82,9 +83,11 @@ const AddVisa = props => {
         });
       }
 
-
+      uiupdateHandle()
      
     } )
+
+    
 
     
  
@@ -303,7 +306,8 @@ const AddVisa = props => {
       </div>
 
       {/* Submit Button */}
-      <button
+      <button 
+     
         type="submit"
         className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
       >

@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { contextData } from "../Contex";
 
 const LoginPage = () => {
@@ -11,7 +11,9 @@ const LoginPage = () => {
 
 
 
-const {loginUser}=useContext(contextData)
+const {loginUser,userData}=useContext(contextData)
+const navigate=useNavigate()
+    
 
   const loginHandle = (e) => {
     e.preventDefault();
@@ -75,7 +77,7 @@ const {loginUser}=useContext(contextData)
 
           {/* Login Button */}
           <div>
-            <button
+            <button onClick={()=>navigate('/')}
               type="submit"
               className="w-full p-4 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out"
             >

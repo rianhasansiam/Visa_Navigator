@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import CardVisa from "./CardVisa";
 import { contextData } from "../Contex";
@@ -6,6 +6,8 @@ import { contextData } from "../Contex";
 const LatestVisa = () => {
 
  const {visasData}=useContext(contextData)
+
+
 //  console.log(visasData)
 
   return (

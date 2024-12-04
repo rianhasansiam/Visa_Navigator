@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { contextData } from "../Contex";
 
 const RegisterPage = () => {
@@ -33,8 +33,11 @@ const RegisterPage = () => {
 
   // Handle form submit
 
-    const {createNewUser}=useContext(contextData)
-
+    const {createNewUser,userData}=useContext(contextData)
+    const navigate=useNavigate()
+    if(userData){
+      navigate('/')
+    }
 
   const registerHandle = (e) => {
     e.preventDefault();
