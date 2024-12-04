@@ -114,6 +114,7 @@ useEffect(()=>{
      
       setDp(user.photoURL )
     setdisname(user.displayName )
+    setUserData(user)
       console.log(user)
     } else {
       // User is signed out

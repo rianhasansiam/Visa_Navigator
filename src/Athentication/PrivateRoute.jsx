@@ -8,7 +8,7 @@ const PrivateRoute = ({children}) => {
 
     const {userData}=useContext(contextData)
 
-    if(userData){
+    if(!userData){
         return <Navigate to="/login" />
     }
 
