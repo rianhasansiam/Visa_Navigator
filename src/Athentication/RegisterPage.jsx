@@ -3,42 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { contextData } from "../Contex";
 
 const RegisterPage = () => {
-//   const [name, setName] = useState("");
-//   const [email, setEmail] = useState("");
-//   const [photoUrl, setPhotoUrl] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [passwordError, setPasswordError] = useState("");
-//   const [isFormValid, setIsFormValid] = useState(true);
 
-//   // Handle password validation
-//   const validatePassword = (password) => {
-//     const upperCase = /[A-Z]/;
-//     const lowerCase = /[a-z]/;
-//     const minLength = 6;
-
-//     if (!upperCase.test(password)) {
-//       setPasswordError("Password must contain at least one uppercase letter.");
-//       setIsFormValid(false);
-//     } else if (!lowerCase.test(password)) {
-//       setPasswordError("Password must contain at least one lowercase letter.");
-//       setIsFormValid(false);
-//     } else if (password.length < minLength) {
-//       setPasswordError("Password must be at least 6 characters long.");
-//       setIsFormValid(false);
-//     } else {
-//       setPasswordError("");
-//       setIsFormValid(true);
-//     }
-//   };
-
-  // Handle form submit
-
-    const {createNewUser,userData}=useContext(contextData)
+    const {createNewUser,userData,signGoogle}=useContext(contextData)
     const navigate=useNavigate()
+
     if(userData){
       navigate('/')
     }
 
+    
+    const [verifypass,setverifypass]=useState(null)
+    const [alert,setAlert]=useState(null)
   const registerHandle = (e) => {
     e.preventDefault();
     const name=e.target.name.value
@@ -46,20 +21,43 @@ const RegisterPage = () => {
     const password=e.target.password.value
     const photoUrl=e.target.photoUrl.value
     // console.log(name,email,photoUrl,password)
-    createNewUser(name,email,password,photoUrl)
+    
 
-    // if (!isFormValid) {
-    //   return; // Prevent form submission if there are validation errors
-    // }
 
-    // Register logic here (e.g., send data to the backend)
-    // console.log("Name:", name);
-    // console.log("Email:", email);
-    // console.log("Photo URL:", photoUrl);
-    // console.log("Password:", password);
+
+
+        const hasUppercase = /[A-Z]/.test(password);
+        const hasLowercase = /[a-z]/.test(password);
+        const isLengthValid = password.length >= 6;
+        if (!isLengthValid) {
+          return setAlert('Password must be at least 6 characters long.')
+        }
+        if (!hasUppercase) {
+          return setAlert('Password must contain at least one uppercase letter.')
+        }
+        if (!hasLowercase) {
+          return setAlert('Password must contain at least one lowercase letter.')
+        }
+
+        if(hasUppercase && hasLowercase && isLengthValid){
+          setverifypass(password)
+          setAlert('')
+        }
+
+        createNewUser(name,email,verifypass,photoUrl)
+   
   };
 
+
+  const [showpass, setShowpass] = useState(false)
+    const showpassHandle=()=>{
+      setShowpass(!showpass)
+    }
+
+
+
   return (
+
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-400 to-white">
       <div className="bg-white p-8 rounded-xl shadow-xl max-w-md w-full">
         <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-6">
@@ -84,7 +82,7 @@ const RegisterPage = () => {
               className="w-full p-4 bg-gray-50 border-2 border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your name"
              name="name"
-            //   onChange={(e) => setName(e.target.value)}
+ 
               required
             />
           </div>
@@ -100,7 +98,7 @@ const RegisterPage = () => {
               className="w-full p-4 bg-gray-50 border-2 border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your email"
         
-            //   onChange={(e) => setEmail(e.target.value)}
+
               required
             />
           </div>
@@ -115,31 +113,28 @@ const RegisterPage = () => {
               name="photoUrl"
               className="w-full p-4 bg-gray-50 border-2 border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your photo URL"
-            //   value={photoUrl}
-            //   onChange={(e) => setPhotoUrl(e.target.value)}
+
             />
           </div>
 
           {/* Password Field */}
-          <div className="mb-6">
+          <div className="mb-6 relative">
             <label htmlFor="password" className="block text-gray-700 text-lg font-medium mb-2">
               Password
             </label>
             <input
-              type="password"
+              type={showpass?"text":"password"}
               name="password"
               className="w-full p-4 bg-gray-50 border-2 border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your password"
-            //   value={password}
-            //   onChange={(e) => {
-            //     setPassword(e.target.value);
-            //     validatePassword(e.target.value);
-            //   }}
+      
               required
             />
-            {/* {passwordError && (
-              <p className="text-red-500 text-sm mt-2">{passwordError}</p>
-            )} */}
+
+{showpass?<i onClick={showpassHandle} className="fa-regular fa-eye absolute top-[53px] right-[18px] text-xl cursor-pointer"></i>:<i  onClick={showpassHandle} className="fa-regular fa-eye-slash absolute top-[53px] right-[18px] text-xl cursor-pointer"></i>}
+
+           <p  className="label-text-alt link link-hover text-red-500 text-base mt-2">{alert}</p>
+          
           </div>
 
           {/* Register Button */}
@@ -149,9 +144,20 @@ const RegisterPage = () => {
               className="w-full p-4 text-black text-lg font-semibold rounded-lg shadow-md  'bg-blue-600 hover:bg-blue-700' : 'bg-gray-400" >
               Register
             </button>
+
+
+           
+
           </div>
         </form>
-
+        <button onClick={signGoogle} className="flex items-center justify-center bg-white text-gray-600 border border-gray-300 rounded-md px-4 py-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 mx-auto my-3 font-semibold">
+      <img
+        src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000"
+        alt="Google logo"
+        className="w-5 h-5 mr-2"
+      />
+      Continue with Google
+           </button>
         <div className="mt-4 text-center">
           <p className="text-sm text-gray-600">
             Already have an account?{" "}

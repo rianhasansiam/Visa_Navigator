@@ -9,6 +9,7 @@ import Home from "./Home/Home";
 import LoginPage from "./Athentication/LoginPage";
 import RegisterPage from "./Athentication/RegisterPage";
 import PrivateRoute from "./Athentication/PrivateRoute";
+import VisaDetailsPage from "./Visa Details Page/VisaDetailsPage";
 
 const Root = createBrowserRouter([
     {
@@ -49,6 +50,11 @@ const Root = createBrowserRouter([
         {
           path: "/register",
           element: <RegisterPage/>,
+         
+        },
+        {
+          path: "/visa-details/:id",
+          element: <VisaDetailsPage/>,
          
         },
       ]

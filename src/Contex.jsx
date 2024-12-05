@@ -1,19 +1,17 @@
 import  { createContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 export const contextData=createContext()
-import {  createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import {  createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import auth from './Athentication/Firebase'
 
 
 const Contex = ({children}) => {
 
 
-  const [dependency,setDependency]=useState(0)
+  const [dependency,setDependency]=useState(true)
   const uiupdateHandle=()=>{
-    setDependency(dependency+1)
+    setDependency(!dependency)
   }
-
-
 
 
 
@@ -24,10 +22,9 @@ const Contex = ({children}) => {
   const [dp,setDp]=useState(null)
   const [disname,setdisname]=useState(null)
   const [userData,setUserData]=useState(null)
-  
-  
-
-  
+  const [myAddedVisa,setMyAddedVisa]=useState([])
+ 
+  console.log(dp)
 
   useEffect(()=>{
    
@@ -36,16 +33,6 @@ const Contex = ({children}) => {
     .then(res => res.json())
     .then(data => setAllVisaData(data))
 
-
-    //top countries visas data
-    fetch('http://localhost:5000/top-countries-visa')
-    .then(res => res.json())
-    .then(data => setTopvisa(data))
-
-   //application steps
-    fetch('http://localhost:5000/visa-application-process')
-    .then(res => res.json())
-    .then(data => setVisaSteps(data))
 
 //add 6 data in home page
     fetch('http://localhost:5000/visas-data-home')
@@ -59,73 +46,66 @@ const Contex = ({children}) => {
 
  
  
+useEffect(()=>{
+   //top countries visas data
+   fetch('http://localhost:5000/top-countries-visa')
+   .then(res => res.json())
+   .then(data => setTopvisa(data))
 
+  //application steps
+   fetch('http://localhost:5000/visa-application-process')
+   .then(res => res.json())
+   .then(data => setVisaSteps(data))
+
+},[])
  
 
 
 
 //signUp user
-const createNewUser=(name,email,password,photoUrl)=>{
-
+const createNewUser = (name, email, password, photoUrl) => {
   createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    
-    const user = userCredential.user;
-    setUserData(user)
-    // setLoading(true)
-    
-    // console.log(user)
-
-
-    setDp(photoUrl)
-    setdisname(name)
-
-    
-    //after signup then update profile picture
-    updateProfile(user, {
-      displayName: name,
-       photoURL: photoUrl
-    }).then(() => {
-
-      console.log('Profile updated!')
- 
-    }).catch((error) => {
-      console.log(error)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      if (user) {
+        // Update the profile (set the display name and photo URL)
+        updateProfile(user, {
+          displayName: name,
+          photoURL: photoUrl
+        })
+        .then(() => {
+          // After successful profile update, set the state
+          setUserData(user);  // This stores the user object
+          setDp(photoUrl);    // Set the profile image (dp)
+          setdisname(name);   // Set the display name
+          console.log('Profile updated!');
+        })
+        .catch((error) => {
+          console.error('Error updating profile:', error);
+        });
+      }
+    })
+    .catch((error) => {
+      console.error('Error creating user:', error);
     });
-   
-
-
-
-
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-
-  });
-}
+};
 
 
 
 
 //LOGIN user
-const loginUser=(email, password)=>{
-
+const loginUser = (email, password) => {
   signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-
-    const user = userCredential.user;
-    // setLoading(true)
-  
-    // console.log(user)
-    setUserData(user)
-
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-  });
-}
+    .then((userCredential) => {
+      const user = userCredential.user;
+      setUserData(user);  // Store the user object
+      setDp(user.photoURL);  // Set dp from Firebase user object
+      setdisname(user.displayName);  // Set display name
+    })
+    .catch((error) => {
+      console.error('Error logging in:', error);
+    });
+};
 
 
 
@@ -133,36 +113,77 @@ const loginUser=(email, password)=>{
 
 
 
-useEffect(()=>{
+// useEffect(()=>{
    
-  const unsubscribe=onAuthStateChanged(auth, (user) => {
+//   const unsubscribe=onAuthStateChanged(auth, (user) => {
     
-    if (user) {
+ 
+//     if (user) {
+//       setdisname(user.displayName)
+//       setDp(user.photoURL)
+//       setUserData(user)
 
-     
-      setDp(user.photoURL )
-    setdisname(user.displayName )
+      
+//     } else {
+
+//       console.log("User is signed out")
+
+//       setUserData(null)
+  
+//     }
+//   });
+
+//   return()=>{
+//     unsubscribe()
+//   } 
+
+// },[])
+
+
+
+
+//SIGN IN WITH GOOGLE ACCOUNT
+
+const provider = new GoogleAuthProvider();
+
+const signGoogle = () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const user = result.user;
+      // After successful Google sign-in, update the state
+      setUserData(user);
+      setDp(user.photoURL);  // Set Google user dp
+      setdisname(user.displayName);  // Set Google user display name
+      console.log(user);
+    })
+    .catch((error) => {
+      console.error('Google sign-in error:', error);
+    });
+};
+
+
+
+
+useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, (user) => {
     if (user) {
       setUserData(user);
+      setDp(user.photoURL);
+      setdisname(user.displayName);
     } else {
+      console.log('User is signed out');
       setUserData(null);
-    }
-    // setLoading(true);
-   
-   
-      // console.log(user)
-    } else {
-      // User is signed out
-      console.log('User is signed out')
-    
     }
   });
 
-  return()=>{
-    unsubscribe()
-  } 
+  return () => {
+    unsubscribe();
+  };
+}, []);
 
-},[])
+
+
+
 
 
 
@@ -172,13 +193,14 @@ useEffect(()=>{
 //SIGNOUT user
 const signoutHandle=()=>{
   signOut(auth).then(() => {
-    console.log('Signout successful')
+   
     setUserData(null)
-    // setLoading(false)
+    console.log('Signout successful')
+
 
     // Sign-out successful.
   }).catch((error) => {
-    // An error happened.
+
     console.log('An error happened.')
   });
   
@@ -200,6 +222,10 @@ const signoutHandle=()=>{
       dp,
       userData,
       uiupdateHandle,
+      myAddedVisa,
+      setMyAddedVisa,
+      signGoogle
+      
   
       
 

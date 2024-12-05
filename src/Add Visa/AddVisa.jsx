@@ -3,47 +3,16 @@ import PropTypes from 'prop-types'
 import  { useState } from 'react';
 import swal from 'sweetalert';
 import { contextData } from '../Contex';
+import {  useNavigate } from 'react-router-dom';
 
 const AddVisa = props => {
 
 
-  // const [formData, setFormData] = useState({
-  //   countryImage: '',
-  //   countryName: '',
-  //   visaType: '',
-  //   processingTime: '',
-  //   requiredDocuments: [],
-  //   description: '',
-  //   ageRestriction: '',
-  //   fee: '',
-  //   validity: '',
-  //   applicationMethod: ''
-  // });
+const navigate=useNavigate()
 
-  // const visaTypes = ["Tourist visa", "Student visa", "Official visa"];
-  // const documentOptions = ["Valid passport", "Visa application form", "Recent passport-sized photograph"];
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value
-  //   });
-  // };
+  const {uiupdateHandle,userData}=useContext(contextData)
 
-  // const handleCheckboxChange = (e) => {
-  //   const { value, checked } = e.target;
-  //   const updatedDocuments = checked
-  //     ? [...formData.requiredDocuments, value]
-  //     : formData.requiredDocuments.filter((doc) => doc !== value);
-    
-  //   setFormData({
-  //     ...formData,
-  //     requiredDocuments: updatedDocuments
-  //   });
-  // };
-
-  const {uiupdateHandle}=useContext(contextData)
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -58,11 +27,13 @@ const AddVisa = props => {
     const fee=form.fee.value
     const validity=form.validity.value
     const applicationMethod=form.applicationMethod.value
+    const userName=userData.displayName
+    const userEmail=userData.email
     // type: Date, default: Date.now
     const date = new Date();
     // console.log(today)
 
-    const visaData={imageUrl,country,visaType,processingTime,description,ageRestriction,fee,validity,applicationMethod,date}
+    const visaData={imageUrl,country,visaType,processingTime,description,ageRestriction,fee,validity,applicationMethod,userName,userEmail,date}
     
 
 
@@ -80,6 +51,10 @@ const AddVisa = props => {
           text: "Click the 'OK' button to continue adding the visa.",
           icon: "success",
           button: "OK",
+        }).then((value) => {
+          if (value) {
+            navigate('/all-visas') 
+          }
         });
       }
 
@@ -117,8 +92,7 @@ const AddVisa = props => {
           type="text"
           id="countryImage"
           name="countryImage"
-          // value={formData.countryImage}
-          // onChange={handleChange}
+          
           placeholder="Enter image URL (e.g. imgbb link)"
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -135,8 +109,7 @@ const AddVisa = props => {
           type="text"
           id="countryName"
           name="countryName"
-          // value={formData.countryName}
-          // onChange={handleChange}
+        
           placeholder="Enter country name"
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -152,8 +125,7 @@ const AddVisa = props => {
         <select
           
           name="visaType"
-          // value={formData.visaType}
-          // onChange={handleChange}
+        
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
 
@@ -176,8 +148,7 @@ const AddVisa = props => {
           id="processingTime"
           name="processingTime"
           required
-          // value={formData.processingTime}
-          // onChange={handleChange}
+         
           placeholder="Enter processing time (e.g., 6 months)"
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
@@ -194,8 +165,7 @@ const AddVisa = props => {
         <textarea
         
           name="description"
-          // value={formData.description}
-          // onChange={handleChange}
+        
           placeholder="Enter description"
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -209,8 +179,7 @@ const AddVisa = props => {
           type="number"
           
           name="ageRestriction"
-          // value={formData.ageRestriction}
-          // onChange={handleChange}
+        
           placeholder="Enter age restriction (if any)"
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -224,8 +193,7 @@ const AddVisa = props => {
           type="number"
     
           name="fee"
-          // value={formData.fee}
-          // onChange={handleChange}
+      
           placeholder="Enter visa fee"
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -239,8 +207,7 @@ const AddVisa = props => {
           type="text"
           
           name="validity"
-          // value={formData.validity}
-          // onChange={handleChange}
+         
           placeholder="Enter visa validity (e.g., 6 months)"
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -254,8 +221,7 @@ const AddVisa = props => {
           type="text"
        
           name="applicationMethod"
-          // value={formData.applicationMethod}
-          // onChange={handleChange}
+       
           placeholder="Enter application method (e.g., online)"
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -272,8 +238,7 @@ const AddVisa = props => {
             <input
               type="checkbox"
           
-              // value={doc}
-              // onChange={handleCheckboxChange}
+       
               
               className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             />
@@ -284,8 +249,7 @@ const AddVisa = props => {
             <input
               type="checkbox"
           
-              // value={doc}
-              // onChange={handleCheckboxChange}
+        
               className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             />
             <label  className="ml-2 text-gray-700">Visa application form</label>
@@ -295,8 +259,7 @@ const AddVisa = props => {
             <input
               type="checkbox"
               
-              // value={doc}
-              // onChange={handleCheckboxChange}
+
               className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             />
             <label  className="ml-2 text-gray-700">Recent passport-sized photograph</label>

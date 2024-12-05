@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const CardVisa = ({ visaData }) => {
 
@@ -6,7 +7,7 @@ const CardVisa = ({ visaData }) => {
 
 const {imageUrl,country,visaType,processingTime,fee,validity,applicationMethod}=visaData
 
-
+const navigate=useNavigate()
 
 
   return (
@@ -22,7 +23,7 @@ const {imageUrl,country,visaType,processingTime,fee,validity,applicationMethod}=
       <p className="text-sm text-gray-700"><span className="font-semibold">Fee: </span>{fee}</p>
       <p className="text-sm text-gray-700"><span className="font-semibold">Validity: </span>{validity}</p>
       <p className="text-sm text-gray-700"><span className="font-semibold">Application Method: </span>{applicationMethod}</p>
-      <button className="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300 font-semibold">
+      <button onClick={()=>navigate(`/visa-details/${fee}`)} className="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300 font-semibold">
         See Details
       </button>
     </div>

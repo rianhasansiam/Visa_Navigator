@@ -4,26 +4,34 @@ import { Link, useNavigate } from "react-router-dom";
 import { contextData } from "../Contex";
 
 const LoginPage = () => {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-
-  // Handle form submit
+ 
 
 
 
-const {loginUser,userData}=useContext(contextData)
+const {loginUser,signGoogle,userData}=useContext(contextData)
 const navigate=useNavigate()
-    
+if(userData){
+  navigate('/')
+}
 
   const loginHandle = (e) => {
     e.preventDefault();
     const email=e.target.email.value
     const password=e.target.password.value
-    // console.log(email, password);
      loginUser(email,password)
 
 
   };
+
+
+  const [showpass, setShowpass] = useState(false)
+    
+  const showpassHandle=()=>{
+    setShowpass(!showpass)
+  }
+
+
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-400 to-white">
@@ -46,26 +54,23 @@ const navigate=useNavigate()
               name="email"
               className="w-full p-4 bg-gray-50 border-2 border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your email"
-              // value={email}
-              // onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
 
           {/* Password Field */}
-          <div className="mb-6">
+          <div className="mb-6 relative">
             <label htmlFor="password" className="block text-gray-700 text-lg font-medium mb-2">
               Password
             </label>
             <input
-              type="password"
+              type={showpass?"text":"password"}
               name="password"
               className="w-full p-4 bg-gray-50 border-2 border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your password"
-              // value={password}
-              // onChange={(e) => setPassword(e.target.value)}
               required
             />
+             {showpass?<i onClick={showpassHandle} className="fa-regular fa-eye absolute top-[53px] right-[18px] text-xl cursor-pointer"></i>:<i  onClick={showpassHandle} className="fa-regular fa-eye-slash absolute top-[53px] right-[18px] text-xl cursor-pointer"></i>}
           </div>
 
           {/* Forgot Password Link */}
@@ -85,6 +90,14 @@ const navigate=useNavigate()
             </button>
           </div>
         </form>
+            <button onClick={signGoogle} className="flex items-center justify-center bg-white text-gray-600 border border-gray-300 rounded-md px-4 py-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 mx-auto my-3 font-semibold">
+      <img
+        src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000"
+        alt="Google logo"
+        className="w-5 h-5 mr-2"
+      />
+      Continue with Google
+           </button>
 
         <div className="mt-4 text-center">
           <p className="text-sm text-gray-600">

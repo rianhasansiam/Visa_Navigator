@@ -18,13 +18,21 @@ function App() {
     useEffect(() => {
       const timer = setTimeout(() => {
         setShowComponent(true); 
-      }, 1500);
+      }, 1000);
   
       // Clean up the timer if the component unmounts
       return () => clearTimeout(timer);
     }, []);
     
     
+
+
+
+
+
+
+
+
     
 
   return (
@@ -41,6 +49,10 @@ function App() {
       ) : (
         <div className="flex justify-center items-center mt-[40vh]"><span className="loading loading-ring w-[100px] md:w-[150px]"></span></div>
       )}
+
+
+       
+
     </>
   )
 }

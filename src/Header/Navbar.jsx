@@ -1,15 +1,22 @@
 
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { contextData } from '../Contex'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 const Navbar = () => {
+  
+  
+  useEffect(() => {
+    AOS.init({
+      duration: 1500,
+      once: true, 
+    })
+  }, [])
+  
+  
   const {signoutHandle,dp,disname,userData}=useContext(contextData)
-
-
-
-
-
 
 
   
@@ -58,15 +65,15 @@ const Navbar = () => {
 
     {userData?
    
-   <div className="dropdown dropdown-hover">
-  <div tabIndex={0} role="button" className=' items-center gap-2 hidden md:flex' ><img className=' w-[45px] h-[45px] rounded-full object-cover' src="https://i.ibb.co.com/hYzk0Cv/Rian-Image.png" alt="" />
+   <div className="dropdown dropdown-hover ">
+  <div tabIndex={0} role="button" className=' items-center gap-2 hidden md:flex' ><img className=' w-[45px] h-[45px] rounded-full object-cover' src={dp} alt="" />
  
-  <div data-aos="fade-left"> <h1 className='font-semibold text-lg'>rian hasan siam</h1></div>
+  <h1 data-aos="fade-left" className='font-semibold text-lg'>{disname}</h1>
   </div>
 
 
   <div  tabIndex={0} className="dropdown-content menu bg-base-100 right-[20px] rounded-box z-[1] w-64 p-5  shadow ">
-    <h1 className=' text-center font-bold text-xl py-5'>Rian Hasan Siam</h1>
+    <h1 className=' text-center font-bold text-xl py-5'>{disname}</h1>
   <button className='bg-gray-200 w-1/2 mx-auto font-semibold rounded-lg p-2  text-red-400 text-base ' onClick={signoutHandle}>LogOut</button>
 </div>
 

@@ -9,7 +9,10 @@ const PrivateRoute = ({children}) => {
     const {userData}=useContext(contextData)
 
     if(!userData){
-        return <Navigate to="/login" />
+
+      return <Navigate to="/login" />
+      
+   
     }
 
   return (
