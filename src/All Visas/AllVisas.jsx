@@ -18,18 +18,59 @@ const AllVisas = props => {
     return () => clearTimeout(timer);
   }, []);
   
+
+
+
+  const [visaType, setVisaType] = useState('');
+  // console.log(visaType);
+  const handleVisaChange = (e) => {
+    setVisaType(e.target.value); 
+     
+  };
+
+
+  const filterVisaData = allVisaData.filter(filterdata => filterdata.visaType == visaType)
+  // console.log(filterVisaData)
+  // const visaType=form.visaType.value
+
+
+  
   return (
 
 <>
 
 {showComponent ? (
-      <div className='container mx-auto grid md:grid-cols-2 max-sm:w-[90vw] lg:grid-cols-4 my-20 gap-5'>
 
-      {
-        allVisaData.map(eachVisaData => <CardVisa key={eachVisaData._id} visaData={eachVisaData} />)
-      }
+  <div >
 
-    </div>
+
+  
+        
+<select
+        name="visaType"
+        value={visaType} // Bind the state to the select element
+        onChange={handleVisaChange} // Capture the selected value on change
+        required
+        className="w-[13%] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 block my-5 mx-auto"
+      >
+        <option value="">Filter</option>
+        <option value="Official Visa">Official Visa</option>
+        <option value="Student Visa">Student Visa</option>
+        <option value="Tourist Visa">Tourist Visa</option>
+        <option value="Working Visa">Working Visa</option>
+      </select>
+     
+
+
+
+      <div className='container mx-auto grid md:grid-cols-2 max-sm:w-[90vw] lg:grid-cols-4 mb-20 gap-5'>
+  {
+    (visaType ? filterVisaData : allVisaData).map(eachVisaData => (
+      <CardVisa key={eachVisaData._id} visaData={eachVisaData} />
+    ))
+  }
+</div>
+  </div>
       ) : (
         <div className="flex justify-center items-center my-[30vh]"><span className="loading loading-ring w-[100px] md:w-[150px]"></span></div>
       )}
