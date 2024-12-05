@@ -4,18 +4,22 @@ import PropTypes from 'prop-types';
 import { contextData } from '../Contex';
 import CardVisa from '../Home/CardVisa';
 import { useNavigate } from 'react-router-dom';
+import MyvisaCard from './MyvisaCard';
 
 const MyAddedVisas = props => {
-  const { setMyAddedVisa, myAddedVisa, userData } = useContext(contextData);
+  const { setMyAddedVisa, myAddedVisa, userData, reloadDelte, reloadUpdate } = useContext(contextData);
   const email = userData?.email;  // Optional chaining to avoid errors if userData is undefined
 
   useEffect(() => {
     if (email) {
       fetch(`http://localhost:5000/my-added-visas?email=${email}`)
         .then(res => res.json())
-        .then(data => setMyAddedVisa(data));
+        .then(data => {
+          setMyAddedVisa(data)
+          console.log(data)
+        });
     }
-  }, [email, setMyAddedVisa]);
+  }, [email, setMyAddedVisa, reloadDelte,reloadUpdate]);
 
 
   const navigate=useNavigate()
@@ -24,7 +28,7 @@ const MyAddedVisas = props => {
     <div className="container mx-auto grid md:grid-cols-2 max-sm:w-[90vw] lg:grid-cols-4 my-20 gap-5">
       {Array.isArray(myAddedVisa) && myAddedVisa.length > 0 ? (
         myAddedVisa.map(myvisas => (
-          <CardVisa key={myvisas._id} visaData={myvisas} />
+          <MyvisaCard key={myvisas._id} visaData={myvisas} />
         ))
       ) : (
         <div className="col-span-full text-center bg-gray-100 p-10 rounded-lg shadow-lg">

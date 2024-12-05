@@ -3,6 +3,8 @@ import Footer from "./Footer/Footer"
 import Navbar from "./Header/Navbar"
 import { useContext, useEffect, useState } from "react"
 import { contextData } from "./Contex"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css";
 
 
 
@@ -44,6 +46,7 @@ function App() {
         <Outlet/>
         
          <Footer/>
+         <ToastContainer />
 
       </div>
       ) : (

@@ -82,7 +82,7 @@ if(userData){
 
           {/* Login Button */}
           <div>
-            <button onClick={()=>navigate('/')}
+            <button
               type="submit"
               className="w-full p-4 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out"
             >

@@ -1,97 +1,163 @@
-import React, { useContext, useState } from 'react'
-import PropTypes from 'prop-types'
-import DatePicker from 'react-datepicker'
+import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
+import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { contextData } from '../Contex';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
 const VisaDetailsPage = props => {
+    
+  const { userData, allVisaData } = useContext(contextData);
+  const params = useLocation();
+  const id = params.pathname.split('/')[2];
+  const navigate = useNavigate();
 
-    const {userData}=useContext(contextData)
-    // console.log(userData)
-
-const params=useLocation()
-const fee=params.pathname.split('/')[2]
+  const singleVisaData = allVisaData.find(eachData => eachData._id === id);
+  const { imageUrl, country, visaType, processingTime, fee, validity, applicationMethod, ageRestriction, date, description } = singleVisaData;
 
   const [startDate, setStartDate] = useState(new Date());
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const firstName = e.target.firstName.value;
+    const lastName = e.target.lastName.value;
+    const userEmail = e.target.email.value;
+    const userName = `${firstName} ${lastName}`;
+    
+    const applyVisaInfo = {
+      userName,
+      userEmail,
+      imageUrl,
+      country,
+      visaType,
+      processingTime,
+      fee,
+      validity,
+      applicationMethod,
+      ageRestriction,
+      date,
+      description
+    };
 
+    fetch('http://localhost:5000/visa-apply', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(applyVisaInfo)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.insertedId) {
+        
+        document.getElementById('my_modal_5').close();
+        
+        swal({
+          title: `${visaType} Added Successfully`,
+          text: "Click the 'OK' button to continue.",
+          icon: "success",
+          button: "OK",
+        }).then((value) => {
+          if (value) {
+            navigate('/my-visa-applications'); 
+          }
+        });
+      }
+    });
+  };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-lg">
-      <h2 className="text-2xl font-semibold text-center mb-4">Visa Application Form</h2>
-      <form>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-         value={userData.email}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name</label>
-          <input
-            type="text"
-           
-            name="firstName"
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-            required
-          />
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Last Name</label>
-          <input
-            type="text"
-          
-            name="lastName"
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-            required
-          />
-        </div>
-
-        <div className="mb-4 ">
-          <label htmlFor="appliedDate" className="block text-sm font-medium text-gray-700">Applied Date</label>
-          
-            <DatePicker
-            readOnly
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              className="p-2 border border-gray-300 rounded-md "
-            />
-            
-          </div>
+    <div className="w-[40%] mx-auto my-20 p-6 bg-white shadow-lg rounded-md ">
+      <img src={imageUrl} alt={country} className="w-full h-64 object-cover rounded-md" />
+      <h1 className="text-2xl font-bold my-4">{country} - {visaType}</h1>
+      <p><strong>Processing Time:</strong> {processingTime}</p>
+      <p><strong>Fee:</strong> ${fee}</p>
+      <p><strong>Validity:</strong> {validity} days</p>
+      <p><strong>Application Method:</strong> {applicationMethod}</p>
+      <p><strong>Age Restriction:</strong> {ageRestriction}</p>
+      <p><strong>Description:</strong> {description}</p>
       
+      <div className='flex justify-end'>
+        <button onClick={() => document.getElementById('my_modal_5').showModal()} className="mt-6 px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-700 block">
+          Apply for the visa
+        </button>
+      </div>
 
-        <div className="mb-4">
-          <label htmlFor="fee" className="block text-sm font-medium text-gray-700">Visa Fee</label>
-          <input
-            type="text"
-          
-            name="fee"
-         value={`${fee} $`}
-        
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-          />
-        </div>
+      {/* Modal */}
+      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
+          <div className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-lg">
+            <h2 className="text-2xl font-semibold text-center mb-4">Visa Application Form</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  defaultValue={userData?.email || ''}
+                  readOnly
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                />
+              </div>
 
-        <div className="mt-6 flex justify-center">
-          <button
-            type="submit"
-            className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-          >
-            Apply
-          </button>
+              <div className="mb-4">
+                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  placeholder='Enter Your First Name'
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                  required
+                />
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Last Name</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  placeholder='Enter Your Last Name'
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                  required
+                />
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="appliedDate" className="block text-sm font-medium text-gray-700">Applied Date</label>
+                <DatePicker
+                  readOnly
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  className="p-2 border border-gray-300 rounded-md "
+                />
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="fee" className="block text-sm font-medium text-gray-700">Visa Fee</label>
+                <input
+                  type="text"
+                  name="fee"
+                  defaultValue={`${singleVisaData.fee} $`}
+                  readOnly
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                />
+              </div>
+
+              <div className="mt-6 flex justify-center">
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                >
+                  Apply
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </form>
+      </dialog>
     </div>
-  )
+  );
 }
 
-VisaDetailsPage.propTypes = {}
+VisaDetailsPage.propTypes = {};
 
-export default VisaDetailsPage
+export default VisaDetailsPage;

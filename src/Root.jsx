@@ -10,6 +10,7 @@ import LoginPage from "./Athentication/LoginPage";
 import RegisterPage from "./Athentication/RegisterPage";
 import PrivateRoute from "./Athentication/PrivateRoute";
 import VisaDetailsPage from "./Visa Details Page/VisaDetailsPage";
+import EditMyVisa from "./My Added Visas/EditMyVisa";
 
 const Root = createBrowserRouter([
     {
@@ -55,6 +56,11 @@ const Root = createBrowserRouter([
         {
           path: "/visa-details/:id",
           element: <VisaDetailsPage/>,
+         
+        },
+        {
+          path: "edit-visa/:id",
+          element: <EditMyVisa/>,
          
         },
       ]

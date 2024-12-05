@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 export const contextData=createContext()
 import {  createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import auth from './Athentication/Firebase'
+import { toast } from 'react-toastify';
 
 
 const Contex = ({children}) => {
@@ -23,8 +24,14 @@ const Contex = ({children}) => {
   const [disname,setdisname]=useState(null)
   const [userData,setUserData]=useState(null)
   const [myAddedVisa,setMyAddedVisa]=useState([])
+  const [reloadDelte,setReloadDelete]=useState({})
+  const [reloadDelteapply,setReloadDeleteapply]=useState({})
+  const [reloadUpdate,setReloadUpdate]=useState({})
+  const [allVisaApply,setAllVisaApply]=useState([])
+
+  // console.log(allVisaApply)
  
-  console.log(dp)
+  // console.log(dp)
 
   useEffect(()=>{
    
@@ -86,8 +93,20 @@ const createNewUser = (name, email, password, photoUrl) => {
       }
     })
     .catch((error) => {
-      console.error('Error creating user:', error);
-    });
+
+      if(error=='FirebaseError: Firebase: Error (auth/email-already-in-use).'){
+        toast.error("Already Use This Email", {
+           position: "top-center"
+         })
+   
+       }else{
+   
+         toast.error("Register Failed..Retry or Change the email", {
+           position: "top-center"
+         })
+       }
+       console.log(error)
+     });
 };
 
 
@@ -103,7 +122,17 @@ const loginUser = (email, password) => {
       setdisname(user.displayName);  // Set display name
     })
     .catch((error) => {
-      console.error('Error logging in:', error);
+      // console.error('Error logging in:', error);
+      if(error=='FirebaseError: Firebase: Error (auth/invalid-credential).'){
+        toast.error("Wrong Email or Password", {
+          position: "top-center"
+        })
+      
+      }else{
+        toast.error("Login Failed", {
+          position: "top-center"
+        })
+      }
     });
 };
 
@@ -154,7 +183,7 @@ const signGoogle = () => {
       setUserData(user);
       setDp(user.photoURL);  // Set Google user dp
       setdisname(user.displayName);  // Set Google user display name
-      console.log(user);
+      // console.log(user);
     })
     .catch((error) => {
       console.error('Google sign-in error:', error);
@@ -195,7 +224,10 @@ const signoutHandle=()=>{
   signOut(auth).then(() => {
    
     setUserData(null)
-    console.log('Signout successful')
+    // console.log('Signout successful')
+    toast.warn("Signout successful", {
+      position: "top-center"
+    })
 
 
     // Sign-out successful.
@@ -224,7 +256,15 @@ const signoutHandle=()=>{
       uiupdateHandle,
       myAddedVisa,
       setMyAddedVisa,
-      signGoogle
+      signGoogle,
+      reloadDelte,
+      setReloadDelete,
+      setAllVisaApply,
+      allVisaApply,
+      reloadDelteapply,
+      setReloadDeleteapply,
+      reloadUpdate,
+      setReloadUpdate
       
   
       
