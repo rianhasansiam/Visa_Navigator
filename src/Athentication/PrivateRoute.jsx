@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { contextData } from '../Contex'
 import { Navigate } from 'react-router-dom'
@@ -20,6 +20,6 @@ const PrivateRoute = ({children}) => {
   )
 }
 
-PrivateRoute.propTypes = {}
+PrivateRoute.propTypes = {children: PropTypes.node.isRequired}
 
 export default PrivateRoute

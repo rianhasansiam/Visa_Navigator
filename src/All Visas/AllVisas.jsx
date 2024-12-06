@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
+import  { useContext, useEffect, useState } from 'react'
 import { contextData } from '../Contex'
 
 import CardVisa from '../Home/CardVisa'
 
-const AllVisas = props => {
+const AllVisas = () => {
 
   const {allVisaData}=useContext(contextData)
   const [showComponent, setShowComponent] = useState(false);
@@ -22,16 +21,11 @@ const AllVisas = props => {
 
 
   const [visaType, setVisaType] = useState('');
-  // console.log(visaType);
   const handleVisaChange = (e) => {
     setVisaType(e.target.value); 
      
   };
-
-
   const filterVisaData = allVisaData.filter(filterdata => filterdata.visaType == visaType)
-  // console.log(filterVisaData)
-  // const visaType=form.visaType.value
 
 
   
@@ -48,8 +42,8 @@ const AllVisas = props => {
         
 <select
         name="visaType"
-        value={visaType} // Bind the state to the select element
-        onChange={handleVisaChange} // Capture the selected value on change
+        value={visaType} 
+        onChange={handleVisaChange} 
         required
         className="w-[13%] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 block my-5 mx-auto"
       >
@@ -84,6 +78,6 @@ const AllVisas = props => {
   )
 }
 
-AllVisas.propTypes = {}
+
 
 export default AllVisas

@@ -29,20 +29,18 @@ const Contex = ({children}) => {
   const [reloadUpdate,setReloadUpdate]=useState({})
   const [allVisaApply,setAllVisaApply]=useState([])
 
-  // console.log(allVisaApply)
- 
-  // console.log(dp)
+  
 
   useEffect(()=>{
    
     //all visa data
-    fetch('http://localhost:5000/visas-data')
+    fetch('https://assignment-10-server-gray-three.vercel.app/visas-data')
     .then(res => res.json())
     .then(data => setAllVisaData(data))
 
 
 //add 6 data in home page
-    fetch('http://localhost:5000/visas-data-home')
+    fetch('https://assignment-10-server-gray-three.vercel.app/visas-data-home')
     .then(res => res.json())
     .then(data =>{
      setVisasData(data)
@@ -55,12 +53,12 @@ const Contex = ({children}) => {
  
 useEffect(()=>{
    //top countries visas data
-   fetch('http://localhost:5000/top-countries-visa')
+   fetch('https://assignment-10-server-gray-three.vercel.app/top-countries-visa')
    .then(res => res.json())
    .then(data => setTopvisa(data))
 
   //application steps
-   fetch('http://localhost:5000/visa-application-process')
+   fetch('https://assignment-10-server-gray-three.vercel.app/visa-application-process')
    .then(res => res.json())
    .then(data => setVisaSteps(data))
 
@@ -82,9 +80,9 @@ const createNewUser = (name, email, password, photoUrl) => {
         })
         .then(() => {
           // After successful profile update, set the state
-          setUserData(user);  // This stores the user object
-          setDp(photoUrl);    // Set the profile image (dp)
-          setdisname(name);   // Set the display name
+          setUserData(user);  
+          setDp(photoUrl);    
+          setdisname(name);   
           console.log('Profile updated!');
         })
         .catch((error) => {
@@ -122,7 +120,7 @@ const loginUser = (email, password) => {
       setdisname(user.displayName);  // Set display name
     })
     .catch((error) => {
-      // console.error('Error logging in:', error);
+      
       if(error=='FirebaseError: Firebase: Error (auth/invalid-credential).'){
         toast.error("Wrong Email or Password", {
           position: "top-center"
@@ -142,33 +140,6 @@ const loginUser = (email, password) => {
 
 
 
-// useEffect(()=>{
-   
-//   const unsubscribe=onAuthStateChanged(auth, (user) => {
-    
- 
-//     if (user) {
-//       setdisname(user.displayName)
-//       setDp(user.photoURL)
-//       setUserData(user)
-
-      
-//     } else {
-
-//       console.log("User is signed out")
-
-//       setUserData(null)
-  
-//     }
-//   });
-
-//   return()=>{
-//     unsubscribe()
-//   } 
-
-// },[])
-
-
 
 
 //SIGN IN WITH GOOGLE ACCOUNT
@@ -183,7 +154,7 @@ const signGoogle = () => {
       setUserData(user);
       setDp(user.photoURL);  // Set Google user dp
       setdisname(user.displayName);  // Set Google user display name
-      // console.log(user);
+     
     })
     .catch((error) => {
       console.error('Google sign-in error:', error);
@@ -231,9 +202,9 @@ const signoutHandle=()=>{
 
 
     // Sign-out successful.
-  }).catch((error) => {
+  }).catch(() => {
 
-    console.log('An error happened.')
+    
   });
   
 }

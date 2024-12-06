@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import  { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { contextData } from "../Contex";
 
@@ -20,7 +20,7 @@ const RegisterPage = () => {
     const email=e.target.email.value
     const password=e.target.password.value
     const photoUrl=e.target.photoUrl.value
-    // console.log(name,email,photoUrl,password)
+    
     
 
 

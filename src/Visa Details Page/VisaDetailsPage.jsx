@@ -1,12 +1,12 @@
-import React, { useContext, useState } from 'react';
-import PropTypes from 'prop-types';
+import { useContext, useState } from 'react';
+
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { contextData } from '../Contex';
 import { useLocation, useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 
-const VisaDetailsPage = props => {
+const VisaDetailsPage = () => {
     
   const { userData, allVisaData } = useContext(contextData);
   const params = useLocation();
@@ -40,7 +40,7 @@ const VisaDetailsPage = props => {
       description
     };
 
-    fetch('http://localhost:5000/visa-apply', {
+    fetch('https://assignment-10-server-gray-three.vercel.app/visa-apply', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(applyVisaInfo)
@@ -158,6 +158,6 @@ const VisaDetailsPage = props => {
   );
 }
 
-VisaDetailsPage.propTypes = {};
+
 
 export default VisaDetailsPage;

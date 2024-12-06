@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useContext } from 'react'
+import  { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { contextData } from '../Contex'
 import { toast } from 'react-toastify'
@@ -7,13 +7,13 @@ import { toast } from 'react-toastify'
 const SingleApplication = ({singleDatavisa}) => {
     
 const {setReloadDeleteapply}=useContext(contextData)
-const {userName,userEmail,imageUrl,country,visaType,processingTime,fee,validity,applicationMethod,_id,ageRestriction,date,description}=singleDatavisa
+const {userName,userEmail,imageUrl,country,visaType,processingTime,fee,validity,applicationMethod,_id,date}=singleDatavisa
 
 
 const handleDelteUser=()=>{
-    // console.log(_id)
+    
 
-    fetch(`http://localhost:5000/my-visa-apply/${_id}` ,{
+    fetch(`https://assignment-10-server-gray-three.vercel.app/my-visa-apply/${_id}` ,{
       method:"DELETE"
     })
     .then(res => res.json())
@@ -78,6 +78,22 @@ const handleDelteUser=()=>{
   )
 }
 
-SingleApplication.propTypes = {}
+SingleApplication.propTypes = {
+  singleDatavisa: PropTypes.shape({
+    userName: PropTypes.string.isRequired,
+    userEmail: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string.isRequired,
+    country: PropTypes.string.isRequired,
+    visaType: PropTypes.string.isRequired,
+    processingTime: PropTypes.string.isRequired,
+    fee: PropTypes.number.isRequired,
+    validity: PropTypes.string.isRequired,
+    applicationMethod: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+    ageRestriction: PropTypes.number,
+    date: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired
+  }).isRequired
+};
 
 export default SingleApplication

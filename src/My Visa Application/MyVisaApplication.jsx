@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
+import  { useContext, useEffect, useState } from 'react'
+
 import SingleApplication from './SingleApplication';
 import { contextData } from '../Contex';
 import NoDataFound from './NoDataFound';
 
-const MyVisaApplication = props => {
+const MyVisaApplication = () => {
  
 
   const {userData,setAllVisaApply,allVisaApply,reloadDelteapply}=useContext(contextData)
@@ -12,7 +12,7 @@ const MyVisaApplication = props => {
 
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5000/visa-apply?email=${email}`)
+      fetch(`https://assignment-10-server-gray-three.vercel.app/visa-apply?email=${email}`)
         .then(res => res.json())
         .then(data => setAllVisaApply(data));
     }
@@ -23,7 +23,7 @@ const MyVisaApplication = props => {
   //search data fetch
   
 const [search,setSearch]=useState('')
-// console.log(search)
+
 
 useEffect(()=>{
 
@@ -81,6 +81,6 @@ useEffect(()=>{
   )
 }
 
-MyVisaApplication.propTypes = {}
+
 
 export default MyVisaApplication

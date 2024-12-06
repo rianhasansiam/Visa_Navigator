@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import  { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { contextData } from '../Contex';
@@ -19,7 +19,7 @@ const MyvisaCard = ({ visaData }) => {
   const navigate = useNavigate();
 
   const handleSave = () => {
-    // This function will be called after saving the data from the `EditMyVisa` component
+    
     // Close the modal after saving
     document.getElementById('my_modal_5').close();
   };

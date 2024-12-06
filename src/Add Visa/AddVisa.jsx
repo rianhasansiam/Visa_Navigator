@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
-import PropTypes from 'prop-types'
-import  { useState } from 'react';
+import  { useContext } from 'react'
+
+
 import swal from 'sweetalert';
 import { contextData } from '../Contex';
 import {  useNavigate } from 'react-router-dom';
 
-const AddVisa = props => {
+const AddVisa = () => {
 
 
 const navigate=useNavigate()
@@ -29,15 +29,14 @@ const navigate=useNavigate()
     const applicationMethod=form.applicationMethod.value
     const userName=userData.displayName
     const userEmail=userData.email
-    // type: Date, default: Date.now
     const date = new Date();
-    // console.log(today)
+ 
 
     const visaData={imageUrl,country,visaType,processingTime,description,ageRestriction,fee,validity,applicationMethod,userName,userEmail,date}
     
 
 
-    fetch('http://localhost:5000/visas-data',{
+    fetch('https://assignment-10-server-gray-three.vercel.app/visas-data',{
         method:'POST',
         headers:{'content-type':'application/json'},
         body:JSON.stringify(visaData)
@@ -67,8 +66,6 @@ const navigate=useNavigate()
     
  
   }
-
-
 
 
 
@@ -282,6 +279,6 @@ const navigate=useNavigate()
   )
 }
 
-AddVisa.propTypes = {}
+
 
 export default AddVisa

@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+import  { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { contextData } from '../Contex'
 import swal from 'sweetalert';
-import { useLocation, useNavigate } from 'react-router-dom'
+import {  useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 
 const EditMyVisa = ({_id,onSave}) => {
@@ -10,19 +10,19 @@ const EditMyVisa = ({_id,onSave}) => {
 const navigate=useNavigate()
 
 const id = _id
-// console.log(id)
+
 const {setReloadUpdate}=useContext(contextData)
 
 
 useEffect(()=>{
-    fetch(`http://localhost:5000/my-added-visas/${id}`)
+    fetch(`https://assignment-10-server-gray-three.vercel.app/my-added-visas/${id}`)
     .then(res => res.json())
     .then(data => SetSingleVisaData(data))
 },[])
 
 const [singleVisaData,SetSingleVisaData]=useState({})
 const {imageUrl,country,visaType,processingTime,description,ageRestriction,fee,validity,applicationMethod}=singleVisaData
-// console.log(visaType)
+
 
 
 
@@ -45,7 +45,7 @@ const handleEditSubmit=(e)=>{
 
 
     const updatedVisaData={imageUrl,country,visaType,processingTime,description,ageRestriction,fee,validity,applicationMethod}
-    // console.log(updatedVisaData)
+  
 
 
     fetch(`http://localhost:5000/my-added-visas/${id}`,{
@@ -79,13 +79,7 @@ const handleEditSubmit=(e)=>{
     } )
 
 
-    // fetch(`http://localhost:5000/my-added-visas/${id}`,{
-    //     method:"PATCH",
-    //     headers:{"content-type":"application/json"},
-    //     body:JSON.stringify(updatedVisaData)
-    //   })
-    //   .then(res => res.json())
-    //   .then(data => console.log(data))
+   
 
 
 }
@@ -249,43 +243,7 @@ const handleEditSubmit=(e)=>{
 
 
 
-        {/* Required Documents (Checkboxes) */}
-        {/* <div className="mb-4">
-        <label className="block font-semibold mb-1">Required Documents</label>
        
-          <div  className="flex items-center mb-2">
-            <input
-              type="checkbox"
-          
-       
-              
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-            />
-            <label  className="ml-2 text-gray-700">Valid passport</label>
-          </div>
-
-          <div  className="flex items-center mb-2">
-            <input
-              type="checkbox"
-          
-        
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-            />
-            <label  className="ml-2 text-gray-700">Visa application form</label>
-          </div>
-
-          <div  className="flex items-center mb-2">
-            <input
-              type="checkbox"
-              
-
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-            />
-            <label  className="ml-2 text-gray-700">Recent passport-sized photograph</label>
-          </div>
-
-
-      </div> */}
 
       {/* Submit Button */}
       <button 
@@ -300,6 +258,9 @@ const handleEditSubmit=(e)=>{
   )
 }
 
-EditMyVisa.propTypes = {}
+EditMyVisa.propTypes = {
+  _id: PropTypes.string.isRequired,
+  onSave: PropTypes.func.isRequired,
+};
 
 export default EditMyVisa

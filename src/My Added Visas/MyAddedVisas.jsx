@@ -1,18 +1,18 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import  { useContext, useEffect } from 'react';
+
 import { contextData } from '../Contex';
-import CardVisa from '../Home/CardVisa';
+
 import { useNavigate } from 'react-router-dom';
 import MyvisaCard from './MyvisaCard';
 
-const MyAddedVisas = props => {
+const MyAddedVisas = () => {
   const { setMyAddedVisa, myAddedVisa, userData, reloadDelte, reloadUpdate } = useContext(contextData);
-  const email = userData?.email;  // Optional chaining to avoid errors if userData is undefined
+  const email = userData?.email;  
 
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5000/my-added-visas?email=${email}`)
+      fetch(`https://assignment-10-server-gray-three.vercel.app/my-added-visas?email=${email}`)
         .then(res => res.json())
         .then(data => {
           setMyAddedVisa(data)
@@ -53,6 +53,6 @@ const MyAddedVisas = props => {
   );
 };
 
-MyAddedVisas.propTypes = {};
+
 
 export default MyAddedVisas;
