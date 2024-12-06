@@ -50,6 +50,7 @@ const navigate=useNavigate()
           text: "Click the 'OK' button to continue adding the visa.",
           icon: "success",
           button: "OK",
+          // width: window.innerWidth < 600 ? '80%' : '40%',
         }).then((value) => {
           if (value) {
             navigate('/all-visas') 

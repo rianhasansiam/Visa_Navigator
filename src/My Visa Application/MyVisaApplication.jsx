@@ -42,7 +42,7 @@ useEffect(()=>{
 
 
 {/* serarch option */}
-<label className="input input-bordered flex items-center gap-2 w-[20%] mx-auto my-10">
+<label className="input input-bordered flex items-center gap-2 w-[60%] md:w-[40%]  lg:w-[20%] mx-auto my-10">
   <input onChange={(e)=>setSearch(e.target.value)} type="text" className="grow" placeholder="Search" />
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +63,7 @@ useEffect(()=>{
 
     {allVisaApply.length===0?<NoDataFound/>:
 
-     <div className='grid grid-cols-4 gap-5 container mx-auto  my-5'>
+     <div className='grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-[90vw] lg:container mx-auto  my-5'>
 
        {
 

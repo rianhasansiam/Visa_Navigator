@@ -62,11 +62,26 @@ const [theme , setTheme]=useState(localStorage.getItem("theme")? localStorage.ge
       <ul
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+
+
         <li><NavLink to="/">Home</NavLink></li>
       <li><NavLink to="/all-visas">All Visas</NavLink></li>
       <li><NavLink to="/add-visa">Add Visa</NavLink></li>
       <li><NavLink to="/my-added-visas">My Added Visas</NavLink></li>
       <li><NavLink to="/my-visa-applications">My Visa Applications</NavLink></li>
+      {
+        userData?<li><button className='   font-semibold    text-red-400  ' onClick={signoutHandle}>LogOut</button></li>
+        :
+        <li>
+
+          <li><Link to="/login" className='hover:text-blue-300 sm:hidden'>Login</Link></li>
+         <li><Link to="/register" className='hover:text-blue-300 sm:hidden'>Register</Link></li>
+        </li>
+      }
+      
+      
+
+
       </ul>
     </div>
     <h1 className="btn btn-ghost text-xl font-extrabold   "><img className='w-10' src="https://i.ibb.co.com/dBf0TFW/Visa-initial-512.webp" alt="" />VISA NAVIGATOR</h1>
@@ -82,17 +97,17 @@ const [theme , setTheme]=useState(localStorage.getItem("theme")? localStorage.ge
     </ul>
   </div>
 
-  <div className="navbar-end gap-5 ">
+  <div className="navbar-end sm:gap-5 gap-2 ">
 
 {/* theme controll */}
 
-  <label className="swap swap-rotate">
+  <label className="swap swap-rotate  w-8">
   {/* this hidden checkbox controls the state */}
   <input type="checkbox" onChange={themeHandle} />
 
   {/* sun icon */}
   <svg
-    className="swap-on h-10 w-10 fill-current"
+    className="swap-on w-full h-full fill-current"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24">
     <path
@@ -101,7 +116,7 @@ const [theme , setTheme]=useState(localStorage.getItem("theme")? localStorage.ge
 
   {/* moon icon */}
   <svg
-    className="swap-off h-10 w-10 fill-current"
+    className="swap-off w-full h-full fill-current"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24">
     <path
@@ -109,12 +124,18 @@ const [theme , setTheme]=useState(localStorage.getItem("theme")? localStorage.ge
   </svg>
 </label>
 
+
+
     {userData?
    
    <div className="dropdown dropdown-hover ">
-  <div tabIndex={0} role="button" className=' items-center gap-2 hidden md:flex' ><img data-tooltip-id="my-tooltip" data-tooltip-content={`Hello, ${disname}`} data-tooltip-place="left" className=' w-[45px] h-[45px] rounded-full object-cover' src={dp} alt="" />
+  <div tabIndex={0} role="button" className=' items-center gap-2 flex' ><img data-tooltip-id="my-tooltip" data-tooltip-content={`Hello, ${disname}`} 
+  
+  data-tooltip-place="left" className=' sm:w-[45px] sm:h-[45px] w-[35px] h-[35px] rounded-full object-cover' src={dp} alt="" />
   <Tooltip id="my-tooltip" />
-  <h1 data-aos="fade-left" className='font-semibold text-lg'>{disname}</h1>
+
+
+  <h1 data-aos="fade-left" className='font-semibold text-lg hidden xl:block'>{disname}</h1>
   </div>
 
 
@@ -128,7 +149,7 @@ const [theme , setTheme]=useState(localStorage.getItem("theme")? localStorage.ge
 </div>
   
     :
-     <div className='flex gap-4 underline cursor-pointer font-semibold text-lg'>
+     <div className='sm:flex hidden   gap-4 underline cursor-pointer font-semibold text-lg'>
    <Link to="/login" className='hover:text-blue-300'>Login</Link>
    <Link to="/register" className='hover:text-blue-300'>Register</Link>
     </div>}

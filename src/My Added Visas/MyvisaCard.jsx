@@ -21,7 +21,7 @@ const MyvisaCard = ({ visaData }) => {
   const handleSave = () => {
     
     // Close the modal after saving
-    document.getElementById('my_modal_5').close();
+    document.getElementById(_id).close();
   };
 
   return (
@@ -44,8 +44,8 @@ const MyvisaCard = ({ visaData }) => {
         See Details
       </button>
 
-      <div className='flex justify-around my-3'>
-        <button className='btn block w-32 bg-[#99cc33]' onClick={() => document.getElementById('my_modal_5').showModal()}>
+      <div className='flex justify-around my-3 flex-wrap'>
+        <button className='btn block w-32 bg-[#99cc33]' onClick={() => document.getElementById(_id).showModal()}>
           Edit
         </button>
         <button className='btn block w-32 bg-[#cc3300] text-white' onClick={handleDelteUser}>
@@ -54,7 +54,7 @@ const MyvisaCard = ({ visaData }) => {
       </div>
 
       {/* Modal */}
-      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+      <dialog id={_id} className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <EditMyVisa _id={_id} onSave={handleSave} />
 

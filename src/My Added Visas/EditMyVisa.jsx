@@ -11,6 +11,7 @@ const navigate=useNavigate()
 
 const id = _id
 
+
 const {setReloadUpdate}=useContext(contextData)
 
 
@@ -138,15 +139,15 @@ const handleEditSubmit=(e)=>{
   <label className="block font-semibold mb-1" htmlFor="visaType">Visa Type</label>
   <select
     name="visaType"
-    value={visaType}
-
+    defaultValue={visaType || ""}
     required
     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
   >
-    <option value="">Select Your Visa Type</option>
-    <option value="Official visa">Official visa</option>
-    <option value="Student visa">Student visa</option>
-    <option value="Tourist visa">Tourist visa</option>
+            <option value="">Select Your visa Type</option>
+            <option value="Official Visa">Official Visa</option>
+            <option  value='Student Visa'>Student Visa</option>
+            <option  value='Tourist Visa'>Tourist Visa</option>
+            <option  value='Working Visa'>Working Visa</option>
   </select>
 </div>
 

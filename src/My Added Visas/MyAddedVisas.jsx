@@ -16,7 +16,7 @@ const MyAddedVisas = () => {
         .then(res => res.json())
         .then(data => {
           setMyAddedVisa(data)
-          console.log(data)
+          
         });
     }
   }, [email, setMyAddedVisa, reloadDelte,reloadUpdate]);
@@ -25,7 +25,7 @@ const MyAddedVisas = () => {
   const navigate=useNavigate()
 
   return (
-    <div className="container mx-auto grid md:grid-cols-2 max-sm:w-[90vw] lg:grid-cols-4 my-20 gap-5">
+    <div className="container mx-auto grid sm:grid-cols-2  max-sm:w-[90vw] lg:grid-cols-3 xl:grid-cols-4 my-20 gap-5">
       {Array.isArray(myAddedVisa) && myAddedVisa.length > 0 ? (
         myAddedVisa.map(myvisas => (
           <MyvisaCard key={myvisas._id} visaData={myvisas} />

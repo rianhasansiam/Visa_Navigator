@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react';
-
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { contextData } from '../Contex';
@@ -7,7 +6,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 
 const VisaDetailsPage = () => {
-    
   const { userData, allVisaData } = useContext(contextData);
   const params = useLocation();
   const id = params.pathname.split('/')[2];
@@ -66,9 +64,15 @@ const VisaDetailsPage = () => {
   };
 
   return (
-    <div className="w-[40%] mx-auto my-20 p-6 bg-white shadow-lg rounded-md ">
-      <img src={imageUrl} alt={country} className="w-full h-64 object-cover rounded-md" />
-      <h1 className="text-2xl font-bold my-4">{country} - {visaType}</h1>
+    <div className="w-[90vw] md:w-[80%] lg:w-[60%] xl:w-[40%] mx-auto my-10 p-4 md:p-6 bg-white shadow-lg rounded-md">
+      <img 
+        src={imageUrl} 
+        alt={country} 
+        className="w-full h-48 md:h-64 object-cover rounded-md" 
+      />
+      <h1 className="text-xl md:text-2xl font-bold my-4">{country} - {visaType}</h1>
+      
+      {/* Visa Details */}
       <p><strong>Processing Time:</strong> {processingTime}</p>
       <p><strong>Fee:</strong> ${fee}</p>
       <p><strong>Validity:</strong> {validity} days</p>
@@ -76,18 +80,24 @@ const VisaDetailsPage = () => {
       <p><strong>Age Restriction:</strong> {ageRestriction}</p>
       <p><strong>Description:</strong> {description}</p>
       
+      {/* Apply Button */}
       <div className='flex justify-end'>
-        <button onClick={() => document.getElementById('my_modal_5').showModal()} className="mt-6 px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-700 block">
+        <button 
+          onClick={() => document.getElementById('my_modal_5').showModal()} 
+          className="mt-6 px-4 md:px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-700 block">
           Apply for the visa
         </button>
       </div>
 
       {/* Modal */}
       <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
-          <div className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-lg">
-            <h2 className="text-2xl font-semibold text-center mb-4">Visa Application Form</h2>
-            <form onSubmit={handleSubmit}>
+        <div className="modal-box w-full max-w-lg">
+          <div className="p-4 bg-white rounded-lg shadow-lg">
+            <h2 className="text-xl md:text-2xl font-semibold text-center mb-4">Visa Application Form</h2>
+            
+            <form onSubmit={handleSubmit} className='relative'>
+              
+              {/* Email */}
               <div className="mb-4">
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
                 <input
@@ -99,6 +109,7 @@ const VisaDetailsPage = () => {
                 />
               </div>
 
+              {/* First Name */}
               <div className="mb-4">
                 <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name</label>
                 <input
@@ -110,6 +121,7 @@ const VisaDetailsPage = () => {
                 />
               </div>
 
+              {/* Last Name */}
               <div className="mb-4">
                 <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Last Name</label>
                 <input
@@ -121,16 +133,18 @@ const VisaDetailsPage = () => {
                 />
               </div>
 
+              {/* Date Picker */}
               <div className="mb-4">
                 <label htmlFor="appliedDate" className="block text-sm font-medium text-gray-700">Applied Date</label>
                 <DatePicker
                   readOnly
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
-                  className="p-2 border border-gray-300 rounded-md "
+                  className="w-full p-2 border border-gray-300 rounded-md"
                 />
               </div>
 
+              {/* Visa Fee */}
               <div className="mb-4">
                 <label htmlFor="fee" className="block text-sm font-medium text-gray-700">Visa Fee</label>
                 <input
@@ -142,7 +156,8 @@ const VisaDetailsPage = () => {
                 />
               </div>
 
-              <div className="mt-6 flex justify-center">
+              {/* Submit Button */}
+              <div className="mt-6 flex justify-end ">
                 <button
                   type="submit"
                   className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
@@ -151,13 +166,17 @@ const VisaDetailsPage = () => {
                 </button>
               </div>
             </form>
+                <button
+                  onClick={()=>document.getElementById('my_modal_5').close()}
+                  className="bottom-[40px] absolute px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                >
+                 Cancel
+                </button>
           </div>
         </div>
       </dialog>
     </div>
   );
 }
-
-
 
 export default VisaDetailsPage;

@@ -45,7 +45,7 @@ const AllVisas = () => {
         value={visaType} 
         onChange={handleVisaChange} 
         required
-        className="w-[13%] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 block my-5 mx-auto"
+        className="w-[50%] md:w-[30%] lg:w-[13%] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 block my-5 mx-auto"
       >
         <option value="">Filter</option>
         <option value="Official Visa">Official Visa</option>
