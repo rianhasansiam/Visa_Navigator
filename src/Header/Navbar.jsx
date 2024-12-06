@@ -4,6 +4,10 @@ import { Link, NavLink } from 'react-router-dom'
 import { contextData } from '../Contex'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import 'react-tooltip/dist/react-tooltip.css'
+import { Tooltip } from 'react-tooltip'
+
+
 
 const Navbar = () => {
 //theme managment
@@ -80,6 +84,8 @@ const [theme , setTheme]=useState(localStorage.getItem("theme")? localStorage.ge
 
   <div className="navbar-end gap-5 ">
 
+{/* theme controll */}
+
   <label className="swap swap-rotate">
   {/* this hidden checkbox controls the state */}
   <input type="checkbox" onChange={themeHandle} />
@@ -106,8 +112,8 @@ const [theme , setTheme]=useState(localStorage.getItem("theme")? localStorage.ge
     {userData?
    
    <div className="dropdown dropdown-hover ">
-  <div tabIndex={0} role="button" className=' items-center gap-2 hidden md:flex' ><img className=' w-[45px] h-[45px] rounded-full object-cover' src={dp} alt="" />
- 
+  <div tabIndex={0} role="button" className=' items-center gap-2 hidden md:flex' ><img data-tooltip-id="my-tooltip" data-tooltip-content={`Hello, ${disname}`} data-tooltip-place="left" className=' w-[45px] h-[45px] rounded-full object-cover' src={dp} alt="" />
+  <Tooltip id="my-tooltip" />
   <h1 data-aos="fade-left" className='font-semibold text-lg'>{disname}</h1>
   </div>
 
