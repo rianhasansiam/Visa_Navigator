@@ -29,7 +29,7 @@ useEffect(()=>{
 
 
 
-    fetch(`http://localhost:5000/my-visa-apply-by-search?searchPharams=${search}`)
+    fetch(`https://assignment-10-server-gray-three.vercel.app/my-visa-apply-by-search?searchPharams=${search}`)
          .then(res => res.json())
           .then(data => setAllVisaApply(data));
   },[search,setAllVisaApply])

@@ -5,31 +5,32 @@ import swal from 'sweetalert';
 import {  useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 
-const EditMyVisa = ({_id,onSave}) => {
+const EditMyVisa = ({singleVisaData,onSave}) => {
 
 const navigate=useNavigate()
 
-const id = _id
+// const id = _id
 
 
 const {setReloadUpdate}=useContext(contextData)
 
+// const [singleVisaData,SetSingleVisaData]=useState({})
 
-useEffect(()=>{
-    fetch(`https://assignment-10-server-gray-three.vercel.app/my-added-visas/${id}`)
-    .then(res => res.json())
-    .then(data => SetSingleVisaData(data))
-},[])
+// useEffect(()=>{
+//     fetch(`https://assignment-10-server-gray-three.vercel.app/my-added-visas/${id}`)
+//     .then(res => res.json())
+//     .then(data => SetSingleVisaData(data))
+// },[id])
 
-const [singleVisaData,SetSingleVisaData]=useState({})
-const {imageUrl,country,visaType,processingTime,description,ageRestriction,fee,validity,applicationMethod}=singleVisaData
+const {_id, imageUrl = '', country = '', visaType = '', processingTime = '', description = '', ageRestriction = '', fee = '', validity = '', applicationMethod = '' } = singleVisaData;
+
 
 
 
 
 
 const handleEditSubmit=(e)=>{
-     e.preventDefault();
+     e.preventDefault()
      onSave()
     const form=e.target
     
@@ -49,7 +50,7 @@ const handleEditSubmit=(e)=>{
   
 
 
-    fetch(`http://localhost:5000/my-added-visas/${id}`,{
+    fetch(`https://assignment-10-server-gray-three.vercel.app/my-added-visas/${_id}`,{
         method:"PATCH",
         headers:{"content-type":"application/json"},
         body:JSON.stringify(updatedVisaData)
@@ -137,18 +138,19 @@ const handleEditSubmit=(e)=>{
       {/* Visa Type Dropdown */}
       <div className="mb-4">
   <label className="block font-semibold mb-1" htmlFor="visaType">Visa Type</label>
-  <select
+
+ {visaType? <select
     name="visaType"
-    defaultValue={visaType || ""}
+    defaultValue={visaType ||''}
     required
     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
   >
-            <option value="">Select Your visa Type</option>
+            <option value="" disabled>Select Your Visa Type</option>
             <option value="Official Visa">Official Visa</option>
             <option  value='Student Visa'>Student Visa</option>
             <option  value='Tourist Visa'>Tourist Visa</option>
             <option  value='Working Visa'>Working Visa</option>
-  </select>
+  </select>:''}
 </div>
 
 

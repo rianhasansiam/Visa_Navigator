@@ -1,4 +1,4 @@
-import  { useContext } from 'react';
+import  { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { contextData } from '../Contex';
@@ -8,8 +8,17 @@ const MyvisaCard = ({ visaData }) => {
   const { setReloadDelete } = useContext(contextData);
   const { imageUrl, country, visaType, processingTime, fee, validity, applicationMethod, _id } = visaData;
 
+  const [singleVisaData,SetSingleVisaData]=useState({})
+  
+  useEffect(()=>{
+    fetch(`https://assignment-10-server-gray-three.vercel.app/my-added-visas/${_id}`)
+    .then(res => res.json())
+    .then(data => SetSingleVisaData(data))
+},[_id])
+
+
   const handleDelteUser = () => {
-    fetch(`http://localhost:5000/my-added-visas/${_id}`, {
+    fetch(`https://assignment-10-server-gray-three.vercel.app/my-added-visas/${_id}`, {
       method: 'DELETE',
     })
       .then(res => res.json())
@@ -56,7 +65,7 @@ const MyvisaCard = ({ visaData }) => {
       {/* Modal */}
       <dialog id={_id} className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
-          <EditMyVisa _id={_id} onSave={handleSave} />
+          <EditMyVisa singleVisaData={singleVisaData} onSave={handleSave} />
 
           {/* Removed the modal close button */}
         </div>
