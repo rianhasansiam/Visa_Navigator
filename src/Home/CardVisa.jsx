@@ -16,7 +16,7 @@ const CardVisa = ({ visaData }) => {
       <h2 className="text-3xl font-bold mb-2">{country}</h2>
       <p className="text-sm text-gray-700"><span className="font-semibold">Visa Type: </span>{visaType}</p>
       <p className="text-sm text-gray-700"><span className="font-semibold">Processing Time: </span>{processingTime}</p>
-      <p className="text-sm text-gray-700"><span className="font-semibold">Fee: </span>{fee}</p>
+      <p className="text-sm text-gray-700"><span className="font-semibold">Fee: </span>${fee}</p>
       <p className="text-sm text-gray-700"><span className="font-semibold">Validity: </span>{validity}</p>
       <p className="text-sm text-gray-700"><span className="font-semibold">Application Method: </span>{applicationMethod}</p>
       <button onClick={() => navigate(`/visa-details/${_id}`)} className="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300 font-semibold">

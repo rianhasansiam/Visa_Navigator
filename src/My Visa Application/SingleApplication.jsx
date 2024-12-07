@@ -50,7 +50,7 @@ const handleDelteUser=()=>{
                 <strong>Processing Time:</strong> {processingTime}
               </p>
               <p className="text-sm text-gray-600 mb-2">
-                <strong>Fee:</strong> {fee}$
+                <strong>Fee:</strong>${fee}
               </p>
               <p className="text-sm text-gray-600 mb-2">
                 <strong>Validity:</strong> {validity}
