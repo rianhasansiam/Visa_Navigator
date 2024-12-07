@@ -67,7 +67,7 @@ useEffect(()=>{
 
        {
 
-           (allVisaApply.map(eachData => <SingleApplication key={eachData._id} singleDatavisa={eachData}  />))
+           allVisaApply.map(eachData => <SingleApplication key={eachData._id} singleDatavisa={eachData}  />)
        }
           </div>
     }

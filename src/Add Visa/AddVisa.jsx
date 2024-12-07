@@ -235,6 +235,7 @@ const navigate=useNavigate()
        
           <div  className="flex items-center mb-2">
             <input
+            required
               type="checkbox"
           
        
@@ -246,6 +247,7 @@ const navigate=useNavigate()
 
           <div  className="flex items-center mb-2">
             <input
+            required
               type="checkbox"
           
         
@@ -256,6 +258,7 @@ const navigate=useNavigate()
 
           <div  className="flex items-center mb-2">
             <input
+            required
               type="checkbox"
               
 

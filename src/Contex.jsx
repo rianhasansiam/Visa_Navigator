@@ -28,6 +28,7 @@ const Contex = ({children}) => {
   const [reloadDelteapply,setReloadDeleteapply]=useState({})
   const [reloadUpdate,setReloadUpdate]=useState({})
   const [allVisaApply,setAllVisaApply]=useState([])
+  const [dataTheme,setDatatheme]=useState(null)
 
   
 
@@ -235,7 +236,9 @@ const signoutHandle=()=>{
       reloadDelteapply,
       setReloadDeleteapply,
       reloadUpdate,
-      setReloadUpdate
+      setReloadUpdate,
+      setDatatheme,
+      dataTheme
       
   
       

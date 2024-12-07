@@ -10,14 +10,22 @@ import { Tooltip } from 'react-tooltip'
 
 
 const Navbar = () => {
+  const {signoutHandle,dp,disname,userData,setDatatheme}=useContext(contextData)
+  
 //theme managment
 const [theme , setTheme]=useState(localStorage.getItem("theme")? localStorage.getItem("theme") : "light")
+
+
+
 
   const themeHandle=(e)=>{
     if(e.target.checked){
       setTheme('dark')
+      // setDatatheme(true)
+
     }else{
       setTheme('light')
+      // setDatatheme(false)
     }
   }
   
@@ -26,7 +34,12 @@ const [theme , setTheme]=useState(localStorage.getItem("theme")? localStorage.ge
   localStorage.setItem("theme", theme);
   const localTheme = localStorage.getItem("theme");
   document.querySelector("html").setAttribute("data-theme", localTheme)
-  },[theme])
+  if(localTheme=='dark'){
+    setDatatheme(true)
+  }else{
+    setDatatheme(false)
+  }
+  },[theme,setDatatheme])
   
   
   useEffect(() => {
@@ -37,7 +50,6 @@ const [theme , setTheme]=useState(localStorage.getItem("theme")? localStorage.ge
   }, [])
   
   
-  const {signoutHandle,dp,disname,userData}=useContext(contextData)
 
 
   
@@ -107,7 +119,7 @@ const [theme , setTheme]=useState(localStorage.getItem("theme")? localStorage.ge
 
   {/* sun icon */}
   <svg
-    className="swap-on w-full h-full fill-current"
+    className="swap-off w-full h-full fill-current"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24">
     <path
@@ -116,7 +128,7 @@ const [theme , setTheme]=useState(localStorage.getItem("theme")? localStorage.ge
 
   {/* moon icon */}
   <svg
-    className="swap-off w-full h-full fill-current"
+    className="swap-on w-full h-full fill-current"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24">
     <path

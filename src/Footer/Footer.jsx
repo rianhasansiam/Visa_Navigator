@@ -1,9 +1,13 @@
+import { useContext } from "react";
+import { contextData } from "../Contex";
 
 
 const Footer = () => {
+
+  const {dataTheme}=useContext(contextData)
   return (
     <footer className="py-10">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-4 text-gray-700">
+      <div className={`max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-4 ${dataTheme?"text-white":"text-gray-700"}`}>
         <div>
           <h1 className="flex gap-3 items-center text-xl font-extrabold">
             <img className="w-10" src="https://i.ibb.co.com/dBf0TFW/Visa-initial-512.webp" alt="Visa Navigator Logo" />

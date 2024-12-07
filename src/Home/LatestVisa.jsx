@@ -6,16 +6,17 @@ import { Fade } from "react-awesome-reveal";
 
 import animationData from './Animation.json'
 import Lottie from "lottie-react";
+import { Link } from "react-router-dom";
 
 const LatestVisa = () => {
 
- const {visasData}=useContext(contextData)
+ const {visasData,dataTheme}=useContext(contextData)
 
 
 
 
   return (
-    <div className="py-16 bg-gray-100">
+    <div className={`py-16 ${dataTheme?'': "bg-gray-100"}`}>
       <div className="container mx-auto px-4">
         <div className="flex justify-center items-center mb-10 gap-5">
 
@@ -32,6 +33,8 @@ const LatestVisa = () => {
           ))}
       </Fade>
         </div>
+
+       <Link to="/all-visas"><button className="btn bg-[#2563eb] text-white mx-auto block my-3">See All Visas</button></Link>
       </div>
     </div>
   );
