@@ -13,7 +13,7 @@ The Visa Navigator is a platform designed to simplify the process of checking vi
 
 
 ## Screenshot
-![VisaNavigator Screenshot](https://rianhasansiam-64bc5.web.app/assets/scholarshiHUb-D_LzlTgO.png)
+![VisaNavigator Screenshot](https://rianhasansiam-64bc5.web.app/assets/visanavigator-BlOp6cQi.png)
 
 ## Key Features
 - User-Friendly Design
