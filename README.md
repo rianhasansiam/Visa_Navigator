@@ -15,7 +15,7 @@ The Visa Navigator is a platform designed to simplify the process of checking vi
 ## Screenshot
 ![VisaNavigator Screenshot](https://rianhasansiam-64bc5.web.app/assets/visanavigator-BlOp6cQi.png)
 
-## Key Features
+## core Features
 - User-Friendly Design
 - Comprehensive Visa Database
 - Online Application & Tracking
@@ -24,6 +24,29 @@ The Visa Navigator is a platform designed to simplify the process of checking vi
 
 
   
+## Dependencies
+
+- @emotion/react
+- AOS
+- Firebase
+- LocalForage
+- Lottie React
+- Match Sorter
+- React
+- React Awesome Reveal
+- React DatePicker
+- React DOM
+- React Responsive Carousel
+- React Router DOM
+- React Simple Typewriter
+- React Toastify
+- React Tooltip
+- Sort By
+- SweetAlert
+- Swiper
+
+
+
 ## Technologies and Libraries
 
 - **React**: Frontend JavaScript library used for building the user interface.
@@ -65,19 +88,28 @@ Follow these steps to set up the project locally:
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/rianhasansiam/Visa_Navigator.git
+ 
+   ```
+
+
+2. **Navigate to the project directory**:
+   ```bash
    cd Visa_Navigator
    ```
 
 
-2. **Install Dependencies**:
+3. **Install dependencies**:
    ```bash
    npm install
    ```
 
 
-3. **Project start**:
+
+
+4. **Run the project**:
    ```bash
-   npm start
+   npm run dev
+
    ```
 
 
